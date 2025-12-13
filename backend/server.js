@@ -1,0 +1,78 @@
+import express from "express";
+import path from "path";
+import cookieParser from "cookie-parser";
+import {v2 as cloudinary} from "cloudinary";
+import "dotenv/config"; //using this instead of
+//import dotenv from "dotenv";
+//dotenv.config();
+
+import authRoutes from "./routes/auth.route.js";
+import productRoutes from "./routes/product.route.js";
+import cartRoutes from "./routes/cart.route.js";
+import couponRoutes from "./routes/coupon.route.js";
+import paymentRoutes from "./routes/payment.route.js";
+import analyticsRoutes from "./routes/analytics.route.js";
+
+import { connectDB } from "./lib/db.js";
+
+const app = express();
+const PORT = process.env.PORT || 5000;
+const __dirname = path.resolve();
+
+app.use((req, res, next) => { res.removeHeader('Content-Security-Policy'); next(); });
+
+app.use(express.json());// allows you to parse the body of the request
+app.use(cookieParser());
+
+app.use("/api/auth", authRoutes);
+app.use("/api/products", productRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/coupons", couponRoutes);
+app.use("/api/payments", paymentRoutes);
+app.use("/api/analytics", analyticsRoutes);
+
+if (process.env.NODE_ENV === "production"){
+  // app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
+  // app.get("*", (req, res) => {
+  //   res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+  // });
+
+
+  // remove restrictive CSP header while debugging (so browser/devtools requests aren't blocked)
+  app.use((req, res, next) => { res.removeHeader('Content-Security-Policy'); next(); });
+
+  // serve the frontend build (fixed path join — no leading slash)
+  app.use(express.static(path.join(__dirname, 'frontend', 'dist')));
+
+  // serve index.html for SPA routes
+ app.get(/.*/, (req, res) => {
+  res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+});
+// alert
+// alert
+// alert
+// alert
+// alert
+// alert
+// alert
+// alert 
+// alert
+// alert
+// alert
+// alert
+// the line spa routes above fixed the code remember that
+
+
+
+}
+
+
+
+
+
+app.listen(PORT, () => {
+  console.log("server is up and running on http://localhost:" + PORT);
+
+  connectDB();
+});
