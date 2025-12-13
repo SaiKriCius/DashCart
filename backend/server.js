@@ -2,9 +2,9 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from "cloudinary";
-import "dotenv/config"; //using this instead of
-//import dotenv from "dotenv";
-//dotenv.config();
+
+import dotenv from "dotenv";
+dotenv.config();
 
 import authRoutes from "./routes/auth.route.js";
 import productRoutes from "./routes/product.route.js";
@@ -15,10 +15,17 @@ import analyticsRoutes from "./routes/analytics.route.js";
 
 import { connectDB } from "./lib/db.js";
 
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 const __dirname = path.resolve();
 
+app.use(express.json({limit:"5mb"}));
 app.use((req, res, next) => { res.removeHeader('Content-Security-Policy'); next(); });
 
 app.use(express.json());// allows you to parse the body of the request
