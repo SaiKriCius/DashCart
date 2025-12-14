@@ -1,11 +1,14 @@
+import dotenv from "dotenv";
+dotenv.config();
+
 import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from "cloudinary";
 
-import dotenv from "dotenv";
-dotenv.config();
 
+
+import webhookRoutes from "./routes/webhook.route.js";
 import authRoutes from "./routes/auth.route.js";
 import productRoutes from "./routes/product.route.js";
 import cartRoutes from "./routes/cart.route.js";
@@ -22,8 +25,11 @@ cloudinary.config({
 });
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.PORT || 5000; 
 const __dirname = path.resolve();
+
+app.use("/api/webhook", webhookRoutes);
+
 
 app.use(express.json({limit:"5mb"}));
 app.use((req, res, next) => { res.removeHeader('Content-Security-Policy'); next(); });

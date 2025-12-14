@@ -1,6 +1,13 @@
 import Stripe from "stripe";
-import dotenv from "dotenv";
 
-dotenv.config();
+let stripeInstance;
 
-export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+export const getStripe = () => {
+	if (!stripeInstance) {
+		if (!process.env.STRIPE_SECRET_KEY) {
+			throw new Error("STRIPE_SECRET_KEY is not set");
+		}
+		stripeInstance = new Stripe(process.env.STRIPE_SECRET_KEY);
+	}
+	return stripeInstance;
+};
