@@ -5,15 +5,26 @@ import { motion } from "framer-motion";
 import ProductCard from "../components/ProductCard";
 
 const CategoryPage = () => {
-	const { fetchProductsByCategory, products } = useProductStore();
+	const { fetchProductsByCategory, clearProducts, products, loading } = useProductStore();
+
 
 	const { category } = useParams();
 
 	useEffect(() => {
-		fetchProductsByCategory(category);
-	}, [fetchProductsByCategory, category]);
+	clearProducts();
+	fetchProductsByCategory(category);
+}, [category, clearProducts, fetchProductsByCategory]);
+
 
 	console.log("products:", products);
+	if (loading) {
+	return (
+		<div className="min-h-screen flex items-center justify-center">
+			<p className="text-xl text-gray-300">Loading...</p>
+		</div>
+	);
+}
+
 	return (
 		<div className='min-h-screen'>
 			<div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
@@ -37,6 +48,7 @@ const CategoryPage = () => {
 							No products found
 						</h2>
 					)}
+					
 
 					{products?.map((product) => (
 						<ProductCard key={product._id} product={product} />
