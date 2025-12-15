@@ -1,10 +1,9 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-	baseURL:
-		import.meta.mode === "development"
-			? "http://localhost:5000/api"
-			: "https://dashcart-production.up.railway.app/api",
+	baseURL: import.meta.env.DEV
+		? "http://localhost:5000/api"
+		: "https://dashcart-production.up.railway.app/api",
 	withCredentials: true,
 });
 

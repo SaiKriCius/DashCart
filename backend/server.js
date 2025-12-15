@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import express from "express";
+import cors from "cors";
 import path from "path";
 import cookieParser from "cookie-parser";
 import {v2 as cloudinary} from "cloudinary";
@@ -25,6 +26,15 @@ cloudinary.config({
 });
 
 const app = express();
+app.use(
+	cors({
+		origin: [
+			"http://localhost:5173",
+			"https://dashcart-production.up.railway.app",
+		],
+		credentials: true,
+	})
+);
 const PORT = process.env.PORT || 5000; 
 const __dirname = path.resolve();
 
