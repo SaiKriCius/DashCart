@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import CategoryItem from "../components/CategoryItem";
-import { useProductStore } from "../stores/useProductStore";
 import FeaturedProducts from "../components/FeaturedProducts";
+import { useProductStore } from "../stores/useProductStore";
 
 const categories = [
 	{ href: "/jeans", name: "Jeans", imageUrl: "/jeans.jpg" },
@@ -23,24 +23,39 @@ const HomePage = () => {
 	}, [fetchFeaturedProducts]);
 
 	return (
-		<div className='relative min-h-screen text-white overflow-hidden'>
-			<div className='relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16'>
-				<h1 className='text-center text-5xl sm:text-6xl font-bold text-emerald-400 mb-4'>
+		<div className="relative min-h-screen bg-linear-to-b from-gray-900 via-gray-900 to-black text-white overflow-hidden">
+			
+			{/* HERO SECTION */}
+			<section className="pt-28 sm:pt-32 pb-14 text-center px-4">
+				<h1 className="text-3xl sm:text-4xl font-bold leading-tight text-emerald-400">
 					Explore Our Categories
 				</h1>
-				<p className='text-center text-xl text-gray-300 mb-12'>
+
+				<p className="text-sm sm:text-base text-gray-300 mt-3 max-w-xs mx-auto">
 					Discover the latest trends in eco-friendly fashion
 				</p>
+			</section>
 
-				<div className='grid grid-cols-3 lg:grid-cols-4 gap-4'>
+			{/* CATEGORIES */}
+			<section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+				<div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
 					{categories.map((category) => (
-						<CategoryItem category={category} key={category.name} />
+						<CategoryItem
+							key={category.name}
+							category={category}
+						/>
 					))}
 				</div>
+			</section>
 
-				{!isLoading && products.length > 0 && <FeaturedProducts featuredProducts={products} />}
-			</div>
+			{/* FEATURED PRODUCTS */}
+			{!isLoading && products.length > 0 && (
+				<section className="pb-24">
+					<FeaturedProducts featuredProducts={products} />
+				</section>
+			)}
 		</div>
 	);
 };
+
 export default HomePage;
