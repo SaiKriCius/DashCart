@@ -1,56 +1,139 @@
-import { Minus, Plus, Trash } from "lucide-react";
+import { Minus, Plus, Trash2 } from "lucide-react";
 import { useCartStore } from "../stores/useCartStore";
+import { useState, useEffect } from "react";
+
+const DEFAULT_MAX_QTY = 10;
 
 const CartItem = ({ item }) => {
 	const { removeFromCart, updateQuantity } = useCartStore();
 
+	// support per-product max, fallback to default
+	const MAX_QTY = item.maxQuantity ?? DEFAULT_MAX_QTY;
+
+	const [inputValue, setInputValue] = useState(String(item.quantity));
+	const [showMaxWarning, setShowMaxWarning] = useState(false);
+
+	// keep input synced if quantity changes elsewhere
+	useEffect(() => {
+		setInputValue(String(item.quantity));
+	}, [item.quantity]);
+
+	const commitQuantity = () => {
+		let value = Number(inputValue);
+
+		if (!value || value < 1) value = 1;
+		if (value > MAX_QTY) {
+			value = MAX_QTY;
+			setShowMaxWarning(true);
+		}
+
+		updateQuantity(item._id, value);
+		setInputValue(String(value));
+	};
+
+	const increaseQty = () => {
+		if (item.quantity >= MAX_QTY) {
+			setShowMaxWarning(true);
+			return;
+		}
+		updateQuantity(item._id, item.quantity + 1);
+	};
+
+	const decreaseQty = () => {
+		updateQuantity(item._id, Math.max(1, item.quantity - 1));
+	};
+
 	return (
-		<div className='rounded-lg border p-4 shadow-sm border-gray-700 bg-gray-800 md:p-6'>
-			<div className='space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0'>
-				<div className='shrink-0 md:order-1'>
-					<img className='h-20 md:h-32 rounded object-cover' src={item.image} />
-				</div>
-				<label className='sr-only'>Choose quantity:</label>
+		<div className="rounded-xl border border-emerald-500/20 bg-gray-900/80 backdrop-blur-sm shadow-md p-4 md:p-6">
+			<div className="flex items-start gap-4">
 
-				<div className='flex items-center justify-between md:order-3 md:justify-end'>
-					<div className='flex items-center gap-2'>
-						<button
-							className='inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border
-							 border-gray-600 bg-gray-700 hover:bg-gray-600 focus:outline-none focus:ring-2
-							  focus:ring-emerald-500'
-							onClick={() => updateQuantity(item._id, item.quantity - 1)}
-						>
-							<Minus className='text-gray-300' />
-						</button>
-						<p>{item.quantity}</p>
-						<button
-							className='inline-flex h-5 w-5 shrink-0 items-center justify-center rounded-md border
-							 border-gray-600 bg-gray-700 hover:bg-gray-600 focus:outline-none 
-						focus:ring-2 focus:ring-emerald-500'
-							onClick={() => updateQuantity(item._id, item.quantity + 1)}
-						>
-							<Plus className='text-gray-300' />
-						</button>
-					</div>
+				{/* IMAGE */}
+				<img
+					src={item.image}
+					alt={item.name}
+					className="h-20 w-20 rounded-lg object-cover bg-white"
+				/>
 
-					<div className='text-end md:order-4 md:w-32'>
-						<p className='text-base font-bold text-emerald-400'>₹{item.price}</p>
-					</div>
-				</div>
-
-				<div className='w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md'>
-					<p className='text-base font-medium text-white hover:text-emerald-400 hover:underline'>
+				{/* DETAILS */}
+				<div className="flex-1">
+					<h3 className="text-sm md:text-base font-semibold text-white">
 						{item.name}
-					</p>
-					<p className='text-sm text-gray-400'>{item.description}</p>
+					</h3>
 
-					<div className='flex items-center gap-4'>
+					<p className="mt-1 text-emerald-400 font-medium">
+						₹{item.price}
+					</p>
+
+					<div className="mt-3 flex items-center justify-between">
+
+						{/* QUANTITY CONTROLS */}
+						<div className="flex flex-col">
+							<div className="flex items-center gap-2">
+								<button
+									onClick={decreaseQty}
+									className="rounded-md bg-gray-700 p-1 text-white hover:bg-gray-600"
+								>
+									<Minus size={14} />
+								</button>
+
+								<input
+									type="number"
+									min="1"
+									max={MAX_QTY}
+									inputMode="numeric"
+									value={inputValue}
+									onChange={(e) => {
+										setInputValue(e.target.value);
+										setShowMaxWarning(false);
+									}}
+									onBlur={commitQuantity}
+									onKeyDown={(e) => {
+										if (e.key === "Enter") e.target.blur();
+									}}
+									className="
+										w-14
+										text-center
+										bg-gray-800
+										border border-gray-600
+										rounded-md
+										text-white
+										text-sm
+										py-1
+										[appearance:textfield]
+										[&::-webkit-inner-spin-button]:appearance-none
+										[&::-webkit-outer-spin-button]:appearance-none
+									"
+								/>
+
+								<button
+									onClick={increaseQty}
+									disabled={item.quantity >= MAX_QTY}
+									className={`
+										rounded-md p-1 text-white
+										${item.quantity >= MAX_QTY
+											? "bg-gray-600 cursor-not-allowed opacity-50"
+											: "bg-gray-700 hover:bg-gray-600"}
+									`}
+								>
+									<Plus size={14} />
+								</button>
+							</div>
+
+							{/* MAX WARNING */}
+							{showMaxWarning && (
+								<p className="mt-1 text-xs text-yellow-400">
+									Max quantity allowed: {MAX_QTY}
+								</p>
+							)}
+						</div>
+
+						{/* REMOVE */}
 						<button
-							className='inline-flex items-center text-sm font-medium text-red-400
-							 hover:text-red-300 hover:underline'
 							onClick={() => removeFromCart(item._id)}
+							className="text-red-400 hover:text-red-500"
+							title="Remove item"
 						>
-							<Trash />
+							<Trash2 size={18} />
 						</button>
 					</div>
 				</div>
@@ -58,4 +141,5 @@ const CartItem = ({ item }) => {
 		</div>
 	);
 };
+
 export default CartItem;

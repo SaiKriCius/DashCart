@@ -18,25 +18,35 @@ const ProductCard = ({ product }) => {
 
 	return (
 		<div className='flex w-full relative flex-col overflow-hidden rounded-lg border border-gray-700 shadow-lg'>
-			<div className='relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl'>
+			<div className='relative mx-3 mt-3 flex h-28 sm:h-40 lg:h-48 overflow-hidden rounded-xl '>
 				<img className='object-cover w-full' src={product.image} alt='product image' />
 				
 
 			</div>
 
-			<div className='mt-4 px-5 pb-5'>
-				<h5 className='text-xl font-semibold tracking-tight text-white'>{product.name}</h5>
-				<div className='mt-2 mb-5 flex items-center justify-between'>
-					<p>
-						<span className='text-3xl font-bold text-emerald-400'>₹{product.price}</span>
-					</p>
-				</div>
+			<div className="p-3">
+				<h3 className="text-sm font-semibold text-white truncate">
+					{product.name}
+				</h3>
+
+				<p className="text-emerald-400 text-sm font-medium mt-1">
+					₹{product.price}
+				</p>
+
 				<button
-					className='flex items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-center text-sm font-medium
-					 text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300'
-					onClick={handleAddToCart}
+					onClick={() => addToCart(product)}
+					className="
+						mt-3
+						w-full
+						bg-emerald-600 hover:bg-emerald-500
+						text-white
+						py-1.5
+						rounded-md
+						flex items-center justify-center gap-2
+						text-sm
+					"
 				>
-					<ShoppingCart size={22} className='mr-2' />
+					<ShoppingCart size={16} />
 					Add to cart
 				</button>
 			</div>
