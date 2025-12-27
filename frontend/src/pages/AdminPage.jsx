@@ -15,6 +15,8 @@ const tabs = [
 
 const AdminPage = () => {
 	const [activeTab, setActiveTab] = useState("create");
+	const [editingProduct, setEditingProduct] = useState(null);
+
 	const { fetchAllProducts } = useProductStore();
 
 	useEffect(() => {
@@ -37,7 +39,10 @@ const AdminPage = () => {
 					{tabs.map((tab) => (
 						<button
 							key={tab.id}
-							onClick={() => setActiveTab(tab.id)}
+							onClick={() => {
+								setActiveTab(tab.id);
+								if (tab.id !== "create") setEditingProduct(null);
+							}}
 							className={`flex items-center px-4 py-2 mx-2 rounded-md transition-colors duration-200 ${
 								activeTab === tab.id
 									? "bg-emerald-600 text-white"
@@ -49,11 +54,27 @@ const AdminPage = () => {
 						</button>
 					))}
 				</div>
-				{activeTab === "create" && <CreateProductForm />}
-				{activeTab === "products" && <ProductsList />}
+
+				{activeTab === "create" && (
+					<CreateProductForm
+						editingProduct={editingProduct}
+						clearEdit={() => setEditingProduct(null)}
+					/>
+				)}
+
+				{activeTab === "products" && (
+					<ProductsList
+						onEdit={(product) => {
+							setEditingProduct(product);
+							setActiveTab("create");
+						}}
+					/>
+				)}
+
 				{activeTab === "analytics" && <AnalyticsTab />}
 			</div>
 		</div>
 	);
 };
+
 export default AdminPage;
