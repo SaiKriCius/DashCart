@@ -30,7 +30,7 @@ app.use(
 	cors({
 		origin: [
 			"http://localhost:5173",
-			"https://dashcart-ihxmz.sevalla.app",
+			"https://dashcart-olv7h.sevalla.app",
 		],
 		credentials: true,
 	})
