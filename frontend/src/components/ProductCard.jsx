@@ -4,53 +4,62 @@ import { useUserStore } from "../stores/useUserStore";
 import { useCartStore } from "../stores/useCartStore";
 
 const ProductCard = ({ product }) => {
-	const { user } = useUserStore();
-	const { addToCart } = useCartStore();
-	const handleAddToCart = () => {
-		if (!user) {
-			toast.error("Please login to add products to cart", { id: "login" });
-			return;
-		} else {
-			// add to cart
-			addToCart(product);
-		}
-	};
+    const { user } = useUserStore();
+    const { addToCart } = useCartStore();
+    
+    const handleAddToCart = () => {
+        if (!user) {
+            toast.error("Please login to add products to cart", { id: "login" });
+            return;
+        } else {
+            // add to cart
+            addToCart(product);
+            toast.success("Added to cart!"); // Added a nice success feedback!
+        }
+    };
 
-	return (
-		<div className='flex w-full relative flex-col overflow-hidden rounded-lg border border-gray-700 shadow-lg'>
-			<div className='relative mx-3 mt-3 flex h-28 sm:h-40 lg:h-48 overflow-hidden rounded-xl '>
-				<img className='object-cover w-full' src={product.image} alt='product image' />
-				
+    return (
+        <div className='flex w-full relative flex-col overflow-hidden rounded-xl border border-white/10 bg-white/5 shadow-lg backdrop-blur-sm transition-all duration-300 hover:shadow-primary/20 hover:border-primary/30'>
+            {/* Image Container with Hover Zoom */}
+            <div className='relative mx-3 mt-3 flex h-40 sm:h-48 lg:h-56 overflow-hidden rounded-lg group'>
+                <img 
+                    className='object-cover w-full h-full transition-transform duration-500 group-hover:scale-110' 
+                    src={product.image} 
+                    alt={product.name} 
+                    loading="lazy" /* THIS FIXES YOUR SCROLL LAG */
+                />
+            </div>
 
-			</div>
+            <div className="p-4 flex flex-col gap-2">
+                <h3 className="text-base font-semibold text-white line-clamp-1">
+                    {product.name}
+                </h3>
 
-			<div className="p-3">
-				<h3 className="text-sm font-semibold text-white truncate">
-					{product.name}
-				</h3>
+                {/* Using our new Theme color */}
+                <p className="text-primary text-lg font-bold">
+                    ₹{product.price}
+                </p>
 
-				<p className="text-emerald-400 text-sm font-medium mt-1">
-					₹{product.price}
-				</p>
-
-				<button
-					onClick={() => addToCart(product)}
-					className="
-						mt-3
-						w-full
-						bg-emerald-600 hover:bg-emerald-500
-						text-white
-						py-1.5
-						rounded-md
-						flex items-center justify-center gap-2
-						text-sm
-					"
-				>
-					<ShoppingCart size={16} />
-					Add to cart
-				</button>
-			</div>
-		</div>
-	);
+                <button
+                    onClick={handleAddToCart} /* FIXED BUG HERE */
+                    className="
+                        mt-2
+                        w-full
+                        bg-primary hover:bg-primary-dark
+                        text-white font-medium
+                        py-2.5
+                        rounded-lg
+                        flex items-center justify-center gap-2
+                        text-sm
+                        transition-colors duration-200
+                        active:scale-95
+                    "
+                >
+                    <ShoppingCart size={18} />
+                    Add to cart
+                </button>
+            </div>
+        </div>
+    );
 };
 export default ProductCard;

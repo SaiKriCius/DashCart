@@ -1,89 +1,101 @@
 import { motion } from "framer-motion";
 import { useCartStore } from "../stores/useCartStore";
 import { Link } from "react-router-dom";
-import { MoveRight } from "lucide-react";
-
+import { MoveRight, CreditCard } from "lucide-react";
 import axios from "../lib/axios";
 
-
-
 const OrderSummary = () => {
-	const { total, subtotal, coupon, isCouponApplied, cart } = useCartStore();
+    const { total, subtotal, coupon, isCouponApplied, cart } = useCartStore();
 
-	const savings = subtotal - total;
-	const formattedSubtotal = subtotal.toFixed(2);
-	const formattedTotal = total.toFixed(2);
-	const formattedSavings = savings.toFixed(2);
+    const savings = subtotal - total;
+    const formattedSubtotal = subtotal.toFixed(2);
+    const formattedTotal = total.toFixed(2);
+    const formattedSavings = savings.toFixed(2);
 
-	const handlePayment = async () => {
-	
-		const res = await axios.post("/payments/create-checkout-session", {
-			products: cart,
-			couponCode: coupon ? coupon.code : null,
-		});
+    const handlePayment = async () => {
+        try {
+            const res = await axios.post("/payments/create-checkout-session", {
+                products: cart,
+                couponCode: coupon ? coupon.code : null,
+            });
+            window.location.href = res.data.url;
+        } catch (error) {
+            console.error("Payment error:", error);
+            // Optionally add a toast.error here if you want to show users if the network fails!
+        }
+    };
 
-		window.location.href = res.data.url;
+    return (
+        <motion.div
+            className='space-y-6 rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-6 sm:p-8 shadow-2xl flex flex-col h-fit'
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+        >
+            <h2 className='text-xl sm:text-2xl font-bold text-white'>
+                Order Summary
+            </h2>
 
+            <div className='space-y-4 grow'>
+                <div className='space-y-3 text-sm sm:text-base'>
+                    {/* ORIGINAL PRICE */}
+                    <dl className='flex items-center justify-between gap-4'>
+                        <dt className='font-medium text-slate-300'>Original price</dt>
+                        <dd className='font-semibold text-white'>₹{formattedSubtotal}</dd>
+                    </dl>
 
-	
-	};
+                    {/* SAVINGS */}
+                    {savings > 0 && (
+                        <dl className='flex items-center justify-between gap-4'>
+                            <dt className='font-medium text-slate-300'>Savings</dt>
+                            <dd className='font-semibold text-primary'>-₹{formattedSavings}</dd>
+                        </dl>
+                    )}
 
-	return (
-		<motion.div
-			className='space-y-4 rounded-lg border border-gray-700 bg-gray-800 p-4 shadow-sm sm:p-6'
-			initial={{ opacity: 0, y: 20 }}
-			animate={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.5 }}
-		>
-			<p className='text-xl font-semibold text-emerald-400'>Order summary</p>
+                    {/* COUPON */}
+                    {coupon && isCouponApplied && (
+                        <dl className='flex items-center justify-between gap-4'>
+                            <dt className='font-medium text-slate-300'>
+                                Coupon (<span className="uppercase font-bold text-white">{coupon.code}</span>)
+                            </dt>
+                            <dd className='font-semibold text-primary'>-{coupon.discountPercentage}%</dd>
+                        </dl>
+                    )}
+                    
+                    {/* TOTAL (Emphasized) */}
+                    <dl className='flex items-center justify-between gap-4 border-t border-white/10 pt-4 mt-4'>
+                        <dt className='text-lg font-bold text-white'>Total</dt>
+                        <dd className='text-2xl font-extrabold text-transparent bg-clip-text bg-linear-to-r from-primary to-indigo-400'>
+                            ₹{formattedTotal}
+                        </dd>
+                    </dl>
+                </div>
+            </div>
 
-			<div className='space-y-4'>
-				<div className='space-y-2'>
-					<dl className='flex items-center justify-between gap-4'>
-						<dt className='text-base font-normal text-gray-300'>Original price</dt>
-						<dd className='text-base font-medium text-white'>₹{formattedSubtotal}</dd>
-					</dl>
+            <div className="pt-2">
+                {/* PROCEED TO CHECKOUT BUTTON */}
+                <button
+                    className='flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 focus:ring-offset-slate-900'
+                    onClick={handlePayment}
+                >
+                    <CreditCard size={20} />
+                    Proceed to Checkout
+                </button>
 
-					{savings > 0 && (
-						<dl className='flex items-center justify-between gap-4'>
-							<dt className='text-base font-normal text-gray-300'>Savings</dt>
-							<dd className='text-base font-medium text-emerald-400'>-₹{formattedSavings}</dd>
-						</dl>
-					)}
-
-					{coupon && isCouponApplied && (
-						<dl className='flex items-center justify-between gap-4'>
-							<dt className='text-base font-normal text-gray-300'>Coupon ({coupon.code})</dt>
-							<dd className='text-base font-medium text-emerald-400'>-{coupon.discountPercentage}%</dd>
-						</dl>
-					)}
-					<dl className='flex items-center justify-between gap-4 border-t border-gray-600 pt-2'>
-						<dt className='text-base font-bold text-white'>Total</dt>
-						<dd className='text-base font-bold text-emerald-400'>₹{formattedTotal}</dd>
-					</dl>
-				</div>
-
-				<motion.button
-					className='flex w-full items-center justify-center rounded-lg bg-emerald-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300'
-					whileHover={{ scale: 1.05 }}
-					whileTap={{ scale: 0.95 }}
-					onClick={handlePayment}
-				>
-					Proceed to Checkout
-				</motion.button>
-
-				<div className='flex items-center justify-center gap-2'>
-					<span className='text-sm font-normal text-gray-400'>or</span>
-					<Link
-						to='/'
-						className='inline-flex items-center gap-2 text-sm font-medium text-emerald-400 underline hover:text-emerald-300 hover:no-underline'
-					>
-						Continue Shopping
-						<MoveRight size={16} />
-					</Link>
-				</div>
-			</div>
-		</motion.div>
-	);
+                {/* CONTINUE SHOPPING LINK */}
+                <div className='mt-6 flex items-center justify-center gap-2'>
+                    <span className='text-sm font-medium text-slate-400'>or</span>
+                    <Link
+                        to='/'
+                        className='group inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-indigo-400 transition-colors'
+                    >
+                        Continue Shopping
+                        <MoveRight size={16} className="transition-transform group-hover:translate-x-1" />
+                    </Link>
+                </div>
+            </div>
+        </motion.div>
+    );
 };
+
 export default OrderSummary;

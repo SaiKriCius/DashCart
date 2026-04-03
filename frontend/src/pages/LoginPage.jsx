@@ -5,111 +5,122 @@ import { LogIn, Mail, Lock, ArrowRight, Loader } from "lucide-react";
 import { useUserStore } from "../stores/useUserStore";
 
 const LoginPage = () => {
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
-	const { login, loading } = useUserStore();
+    const { login, loading } = useUserStore();
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		console.log(email, password);
-		login(email, password);
-	};
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        // Removed the console.log here for better security in production!
+        login(email, password);
+    };
 
-	return (
-		<div className='flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
-			<motion.div
-				className='sm:mx-auto sm:w-full sm:max-w-md'
-				initial={{ opacity: 0, y: -20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8 }}
-			>
-				<h2 className='mt-6 text-center text-3xl font-extrabold text-emerald-400'>Create your account</h2>
-			</motion.div>
+    return (
+        <div className='flex flex-col justify-center py-12 sm:px-6 lg:px-8 grow'>
+            <motion.div
+                className='sm:mx-auto sm:w-full sm:max-w-md'
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8 }}
+            >
+                {/* Fixed the title and applied our brand gradient */}
+                <h2 className='mt-6 text-center text-3xl sm:text-4xl font-extrabold'>
+                    <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-indigo-400">
+                        Welcome Back
+                    </span>
+                </h2>
+                <p className="mt-2 text-center text-sm text-slate-400">
+                    Sign in to your account to continue
+                </p>
+            </motion.div>
 
-			<motion.div
-				className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8, delay: 0.2 }}
-			>
-				<div className='bg-gray-800 py-8 px-4 shadow sm:rounded-lg sm:px-10'>
-					<form onSubmit={handleSubmit} className='space-y-6'>
-						<div>
-							<label htmlFor='email' className='block text-sm font-medium text-gray-300'>
-								Email address
-							</label>
-							<div className='mt-1 relative rounded-md shadow-sm'>
-								<div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-									<Mail className='h-5 w-5 text-gray-400' aria-hidden='true' />
-								</div>
-								<input
-									id='email'
-									type='email'
-									required
-									value={email}
-									onChange={(e) => setEmail(e.target.value)}
-									className=' block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
-									rounded-md shadow-sm
-									 placeholder-gray-400 focus:outline-none focus:ring-emerald-500 
-									 focus:border-emerald-500 sm:text-sm'
-									placeholder='you@example.com'
-								/>
-							</div>
-						</div>
+            <motion.div
+                className='mt-8 sm:mx-auto sm:w-full sm:max-w-md'
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+            >
+                {/* Applied Glassmorphism to the main form container */}
+                <div className='bg-slate-900/60 backdrop-blur-xl py-8 px-4 shadow-2xl sm:rounded-2xl sm:px-10 border border-white/10'>
+                    <form onSubmit={handleSubmit} className='space-y-6'>
+                        
+                        {/* EMAIL INPUT */}
+                        <div>
+                            <label htmlFor='email' className='block text-sm font-medium text-slate-300'>
+                                Email address
+                            </label>
+                            <div className='mt-1 relative rounded-lg shadow-sm'>
+                                <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                                    <Mail className='h-5 w-5 text-slate-400' aria-hidden='true' />
+                                </div>
+                                <input
+                                    id='email'
+                                    type='email'
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className='block w-full px-3 py-2.5 pl-10 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 sm:text-sm'
+                                    placeholder='you@example.com'
+                                />
+                            </div>
+                        </div>
 
-						<div>
-							<label htmlFor='password' className='block text-sm font-medium text-gray-300'>
-								Password
-							</label>
-							<div className='mt-1 relative rounded-md shadow-sm'>
-								<div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
-									<Lock className='h-5 w-5 text-gray-400' aria-hidden='true' />
-								</div>
-								<input
-									id='password'
-									type='password'
-									required
-									value={password}
-									onChange={(e) => setPassword(e.target.value)}
-									className=' block w-full px-3 py-2 pl-10 bg-gray-700 border border-gray-600 
-									rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-emerald-500 focus:border-emerald-500 sm:text-sm'
-									placeholder='••••••••'
-								/>
-							</div>
-						</div>
+                        {/* PASSWORD INPUT */}
+                        <div>
+                            <label htmlFor='password' className='block text-sm font-medium text-slate-300'>
+                                Password
+                            </label>
+                            <div className='mt-1 relative rounded-lg shadow-sm'>
+                                <div className='absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none'>
+                                    <Lock className='h-5 w-5 text-slate-400' aria-hidden='true' />
+                                </div>
+                                <input
+                                    id='password'
+                                    type='password'
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className='block w-full px-3 py-2.5 pl-10 bg-white/5 border border-white/10 rounded-lg text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 sm:text-sm'
+                                    placeholder='••••••••'
+                                />
+                            </div>
+                        </div>
 
-						<button
-							type='submit'
-							className='w-full flex justify-center py-2 px-4 border border-transparent 
-							rounded-md shadow-sm text-sm font-medium text-white bg-emerald-600
-							 hover:bg-emerald-700 focus:outline-none focus:ring-2 focus:ring-offset-2
-							  focus:ring-emerald-500 transition duration-150 ease-in-out disabled:opacity-50'
-							disabled={loading}
-						>
-							{loading ? (
-								<>
-									<Loader className='mr-2 h-5 w-5 animate-spin' aria-hidden='true' />
-									Loading...
-								</>
-							) : (
-								<>
-									<LogIn className='mr-2 h-5 w-5' aria-hidden='true' />
-									Login
-								</>
-							)}
-						</button>
-					</form>
+                        {/* SUBMIT BUTTON */}
+                        <button
+                            type='submit'
+                            disabled={loading}
+                            className='w-full flex justify-center py-2.5 px-4 border border-transparent rounded-lg shadow-lg shadow-primary/20 text-sm font-bold text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-primary transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100'
+                        >
+                            {loading ? (
+                                <>
+                                    <Loader className='mr-2 h-5 w-5 animate-spin' aria-hidden='true' />
+                                    Authenticating...
+                                </>
+                            ) : (
+                                <>
+                                    <LogIn className='mr-2 h-5 w-5' aria-hidden='true' />
+                                    Login
+                                </>
+                            )}
+                        </button>
+                    </form>
 
-					<p className='mt-8 text-center text-sm text-gray-400'>
-						Not a member?{" "}
-						<Link to='/signup' className='font-medium text-emerald-400 hover:text-emerald-300'>
-							Sign up now <ArrowRight className='inline h-4 w-4' />
-						</Link>
-					</p>
-				</div>
-			</motion.div>
-		</div>
-	);
+                    {/* SIGN UP LINK */}
+                    <div className="mt-8 pt-6 border-t border-white/10">
+                        <p className='text-center text-sm text-slate-400'>
+                            Not a member yet?{" "}
+                            <Link to='/signup' className='font-semibold text-primary hover:text-indigo-400 transition-colors inline-flex items-center group'>
+                                Sign up now 
+                                <ArrowRight className='ml-1 h-4 w-4 transition-transform group-hover:translate-x-1' />
+                            </Link>
+                        </p>
+                    </div>
+                </div>
+            </motion.div>
+        </div>
+    );
 };
+
 export default LoginPage;

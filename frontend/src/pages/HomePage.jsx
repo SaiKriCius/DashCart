@@ -28,20 +28,24 @@ const HomePage = () => {
 
   return (
     <div className="relative min-h-screen text-white overflow-hidden">
-      {/* HERO SECTION */}
-      <section className="pt-5 sm:pt-5 pb-10 text-center px-4">        
-        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight text-emerald-400">
-          Explore Our Categories
+      
+      {/* HERO SECTION - Upgraded for a premium feel */}
+      <section className="pt-12 sm:pt-20 pb-12 text-center px-4 max-w-4xl mx-auto">        
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+          Explore Our{" "}
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">
+            Categories
+          </span>
         </h1>
 
-        <p className="text-base sm:text-lg text-gray-300 mt-4 max-w-md mx-auto">
-          Discover the latest trends in eco-friendly fashion
+        <p className="text-base sm:text-lg text-slate-400 mt-6 max-w-2xl mx-auto leading-relaxed">
+          Discover the latest trends in eco-friendly fashion. High-quality materials, curated just for you.
         </p>
       </section>
 
-      {/* CATEGORIES */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      {/* CATEGORIES GRID */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
           {categories.map((category) => (
             <CategoryItem key={category.name} category={category} />
           ))}
@@ -50,8 +54,14 @@ const HomePage = () => {
 
       {/* FEATURED PRODUCTS */}
       {!isLoading && products.length > 0 && (
-        <section className="pb-20">
-          <FeaturedProducts featuredProducts={products} />
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-24">
+          <div className="flex flex-col gap-8">
+            {/* Added a subtle section header for better visual hierarchy */}
+            <h2 className="text-3xl font-bold text-center">
+              Featured <span className="text-primary">Products</span>
+            </h2>
+            <FeaturedProducts featuredProducts={products} />
+          </div>
         </section>
       )}
     </div>

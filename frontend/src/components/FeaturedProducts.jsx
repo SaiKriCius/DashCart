@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import { ShoppingCart, ChevronLeft, ChevronRight } from "lucide-react";
-import { useCartStore } from "../stores/useCartStore";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import ProductCard from "./ProductCard"; // IMPORTING our upgraded component!
 
 const FeaturedProducts = ({ featuredProducts }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -11,8 +11,6 @@ const FeaturedProducts = ({ featuredProducts }) => {
   const lastX = useRef(0);
   const startTime = useRef(0);
   const isDragging = useRef(false);
-
-  const { addToCart } = useCartStore();
 
   useEffect(() => {
     const handleResize = () => {
@@ -48,7 +46,6 @@ const FeaturedProducts = ({ featuredProducts }) => {
     setCurrentIndex((prev) => Math.max(prev - step, 0));
   };
 
-
   const onTouchStart = (e) => {
     startX.current = e.touches[0].clientX;
     lastX.current = startX.current;
@@ -82,21 +79,20 @@ const FeaturedProducts = ({ featuredProducts }) => {
   const isEndDisabled = currentIndex >= featuredProducts.length - itemsPerPage;
 
   return (
-    <div className="py-10">
-      <div className="container mx-auto px-4">
-        <h2 className="text-center text-3xl sm:text-5xl font-bold text-emerald-400 mb-6">
-          Featured
-        </h2>
+    <div className="py-4"> {/* Reduced top padding since HomePage handles the spacing now */}
+      <div className="container mx-auto px-4 relative group">
+        
+        {/* We removed the duplicate heading here since HomePage.jsx renders one right above it! */}
 
         <div className="relative">
           <div
-            className="overflow-hidden"
+            className="overflow-hidden py-4 -my-4" /* Added py-4 so the card hover shadows don't get cut off */
             onTouchStart={isMobile ? onTouchStart : undefined}
             onTouchMove={isMobile ? onTouchMove : undefined}
             onTouchEnd={isMobile ? onTouchEnd : undefined}
           >
             <div
-              className="flex transition-transform duration-300 ease-out"
+              className="flex transition-transform duration-500 ease-out"
               style={{
                 transform: `translateX(-${
                   currentIndex * (100 / itemsPerPage)
@@ -106,75 +102,44 @@ const FeaturedProducts = ({ featuredProducts }) => {
               {featuredProducts.map((product) => (
                 <div
                   key={product._id}
-                  className={`shrink-0 px-2 ${
+                  className={`shrink-0 px-2 sm:px-3 ${
                     isMobile
-                      ? "w-[45%]" 
+                      ? "w-[50%]" // Adjusted to 50% so exactly 2 fit nicely on mobile
                       : "w-1/3 lg:w-1/4 xl:w-1/5"
                   }`}
                 >
-                 <div className='flex w-full relative flex-col overflow-hidden rounded-lg border border-gray-700 shadow-lg'>
-			<div className='relative mx-3 mt-3 flex h-28 sm:h-40 lg:h-48 overflow-hidden rounded-xl '>
-				<img className='object-cover w-full' src={product.image} alt='product image' />
-				
-
-			</div>
-
-			<div className="p-3">
-				<h3 className="text-sm font-semibold text-white truncate">
-					{product.name}
-				</h3>
-
-				<p className="text-emerald-400 text-sm font-medium mt-1">
-					₹{product.price}
-				</p>
-
-				<button
-					onClick={() => addToCart(product)}
-					className="
-						mt-3
-						w-full
-						bg-emerald-600 hover:bg-emerald-500
-						text-white
-						py-1.5
-						rounded-md
-						flex items-center justify-center gap-2
-						text-sm
-					"
-				>
-					<ShoppingCart size={16} />
-					Add to cart
-				</button>
-			</div>
-				</div>
+                  {/* Replaced 40 lines of code with our single, perfectly styled component! */}
+                  <ProductCard product={product} />
                 </div>
               ))}
             </div>
           </div>
 
+          {/* DESKTOP NAVIGATION BUTTONS */}
           {!isMobile && (
             <>
               <button
                 onClick={() => prevSlide()}
                 disabled={isStartDisabled}
-                className={`absolute top-1/2 -left-4 -translate-y-1/2 p-2 rounded-full ${
+                className={`absolute top-1/2 -left-4 sm:-left-6 -translate-y-1/2 p-3 rounded-full transition-all duration-300 z-10 shadow-lg border ${
                   isStartDisabled
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-emerald-600 hover:bg-emerald-500"
+                    ? "bg-white/5 border-white/5 text-slate-500 cursor-not-allowed opacity-50"
+                    : "bg-slate-800 border-white/10 text-white hover:bg-primary hover:border-primary hover:scale-110 shadow-black/50 opacity-0 group-hover:opacity-100"
                 }`}
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
 
               <button
                 onClick={() => nextSlide()}
                 disabled={isEndDisabled}
-                className={`absolute top-1/2 -right-4 -translate-y-1/2 p-2 rounded-full ${
+                className={`absolute top-1/2 -right-4 sm:-right-6 -translate-y-1/2 p-3 rounded-full transition-all duration-300 z-10 shadow-lg border ${
                   isEndDisabled
-                    ? "bg-gray-400 cursor-not-allowed"
-                    : "bg-emerald-600 hover:bg-emerald-500"
+                    ? "bg-white/5 border-white/5 text-slate-500 cursor-not-allowed opacity-50"
+                    : "bg-slate-800 border-white/10 text-white hover:bg-primary hover:border-primary hover:scale-110 shadow-black/50 opacity-0 group-hover:opacity-100"
                 }`}
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
             </>
           )}
