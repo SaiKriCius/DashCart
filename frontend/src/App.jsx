@@ -5,6 +5,7 @@ import LoginPage from "./pages/LoginPage";
 import AdminPage from "./pages/AdminPage";
 import CategoryPage from "./pages/CategoryPage";
 import Navbar from "./components/Navbar";
+import Footer from "./components/Footer"; // 1. Imported the Footer!
 import { Toaster } from "react-hot-toast";
 import { useUserStore } from "./stores/useUserStore";
 import { useEffect } from "react";
@@ -13,10 +14,16 @@ import CartPage from "./pages/CartPage";
 import { useCartStore } from "./stores/useCartStore";
 import PurchaseSuccessPage from "./pages/PurchaseSuccessPage";
 import PurchaseCancelPage from "./pages/PurchaseCancelPage";
+import { useThemeStore } from "./stores/useThemeStore";
 
 function App() {
     const { user, checkAuth, checkingAuth } = useUserStore();
     const { getCartItems } = useCartStore();
+    const { initTheme } = useThemeStore();
+    
+    useEffect(() => {
+        initTheme();
+    }, [initTheme]);
 
     useEffect(() => {
         checkAuth();
@@ -27,14 +34,15 @@ function App() {
         getCartItems();
     }, [getCartItems, user]);
 
-    if (checkingAuth) return <LoadingSpinner />;
+    // Passed fullScreen={true} to match our updated component!
+    if (checkingAuth) return <LoadingSpinner fullScreen={true} />;
 
     return (
-        <div className="min-h-screen relative selection:bg-primary selection:text-white">
+        <div className="min-h-screen relative selection:bg-primary selection:text-text-main bg-bg-base text-text-main transition-colors duration-300">
             {/* Background gradient (using our new CSS variables) */}
             <div className="absolute inset-0 pointer-events-none overflow-hidden z-0">
                 <div 
-                    className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[80vh]" 
+                    className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[80vh] transition-all duration-300" 
                     style={{
                         background: 'radial-gradient(ellipse at top, var(--color-glow-start) 0%, var(--color-glow-mid) 45%, transparent 100%)'
                     }}
@@ -67,9 +75,23 @@ function App() {
                         />
                     </Routes>
                 </main>
+
+                {/* 2. Dropped the Footer right here! */}
+                <Footer />
             </div>
 
-            <Toaster position="bottom-right" />
+            {/* Customizing Toaster to match the active theme */}
+            <Toaster 
+                position="bottom-right" 
+                toastOptions={{
+                    style: {
+                        background: 'var(--color-bg-surface)',
+                        color: 'var(--color-text-main)',
+                        border: '1px solid var(--color-border-subtle)',
+                        backdropFilter: 'blur(10px)',
+                    }
+                }}
+            />
         </div>
     );
 }

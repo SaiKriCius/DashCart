@@ -1,15 +1,51 @@
 @import "tailwindcss";
 
+
+
 @theme {
-  --color-primary: #6366f1;
-  --color-primary-dark: #4338ca;
-  --color-bg-base: #0f172a;
+  --color-primary: #06b6d4;       /* Cyan 500 */
+  --color-primary-dark: #0891b2;  /* Cyan 600 */
+  --color-bg-base: #0f172a;       /* Slate 900 */
   
-  --color-glow-start: rgba(99, 102, 241, 0.25);
-  --color-glow-mid: rgba(67, 56, 202, 0.15);
+  --color-glow-start: rgba(6, 182, 212, 0.25);
+  --color-glow-mid: rgba(8, 145, 178, 0.15);
 }
 
 body {
   background-color: var(--color-bg-base);
   color: white;
+} 
+
+
+@theme {
+  /* 1. BRAND COLOR (Stays the same in light/dark mode) */
+  --color-primary: #6366f1; /* Replace with your chosen theme color! */
+  --color-primary-dark: #4338ca;
+  
+  /* 2. DARK MODE DEFAULT (Semantic names) */
+  --color-bg-base: #0f172a;        /* The main background */
+  --color-surface: rgba(15, 23, 42, 0.6); /* Frosted glass boxes */
+  --color-surface-hover: rgba(255, 255, 255, 0.05); /* Inputs and hovers */
+  
+  --color-text-main: #ffffff;      /* Main headings */
+  --color-text-muted: #94a3b8;     /* Subtitles */
+  --color-border-subtle: rgba(255, 255, 255, 0.1); 
+}
+
+/* 3. LIGHT MODE OVERRIDES */
+/* When the 'light' class is applied to the HTML, these colors take over! */
+.light {
+  --color-bg-base: #f8fafc;        /* Soft white background */
+  --color-surface: rgba(255, 255, 255, 0.7); /* Light frosted glass */
+  --color-surface-hover: rgba(0, 0, 0, 0.05); /* Light gray inputs */
+  
+  --color-text-main: #0f172a;      /* Dark slate text */
+  --color-text-muted: #64748b;     /* Medium slate text */
+  --color-border-subtle: rgba(0, 0, 0, 0.1); /* Darker borders */
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-main);
+  transition: background-color 0.3s ease, color 0.3s ease; /* Smooth fade! */
 }

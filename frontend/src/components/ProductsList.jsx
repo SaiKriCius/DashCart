@@ -9,16 +9,16 @@ const ProductsList = ({ onEdit }) => {
     if (!products || products.length === 0) {
         return (
             <motion.div
-                className="flex flex-col items-center justify-center py-16 px-4 bg-slate-900/50 backdrop-blur-md rounded-xl border border-white/10 shadow-xl max-w-4xl mx-auto"
+                className="flex flex-col items-center justify-center py-16 px-4 bg-slate-900/50 backdrop-blur-md rounded-xl border border-border-subtle shadow-xl max-w-4xl mx-auto"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8 }}
             >
-                <div className="w-20 h-20 bg-white/5 rounded-full flex items-center justify-center mb-4 border border-white/10">
-                    <PackageOpen size={40} className="text-slate-400" />
+                <div className="w-20 h-20 bg-surface-hover rounded-full flex items-center justify-center mb-4 border border-border-subtle">
+                    <PackageOpen size={40} className="text-text-muted" />
                 </div>
-                <h3 className="text-xl font-bold text-white mb-2">No Products Found</h3>
-                <p className="text-slate-400 text-center max-w-sm">
+                <h3 className="text-xl font-bold text-text-main mb-2">No Products Found</h3>
+                <p className="text-text-muted text-center max-w-sm">
                     Your store is currently empty. Start adding some awesome products to see them listed here!
                 </p>
             </motion.div>
@@ -27,7 +27,7 @@ const ProductsList = ({ onEdit }) => {
 
     return (
         <motion.div
-            className='bg-slate-900/60 backdrop-blur-lg shadow-2xl rounded-xl border border-white/10 overflow-hidden max-w-4xl mx-auto'
+            className='bg-surface backdrop-blur-lg shadow-2xl rounded-xl border border-border-subtle overflow-hidden max-w-4xl mx-auto'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
@@ -57,10 +57,10 @@ const ProductsList = ({ onEdit }) => {
 
                     <tbody className='divide-y divide-white/5'>
                         {products?.map((product) => (
-                            <tr key={product._id} className='hover:bg-white/5 transition-colors duration-200'>
+                            <tr key={product._id} className='hover:bg-surface-hover transition-colors duration-200'>
                                 <td className='px-6 py-4 whitespace-nowrap'>
                                     <div className='flex items-center gap-4'>
-                                        <div className="relative h-12 w-12 rounded-lg border border-white/10 overflow-hidden shrink-0">
+                                        <div className="relative h-12 w-12 rounded-lg border border-border-subtle overflow-hidden shrink-0">
                                             <img
                                                 className='h-full w-full object-cover'
                                                 src={product.image}
@@ -68,7 +68,7 @@ const ProductsList = ({ onEdit }) => {
                                                 loading="lazy"
                                             />
                                         </div>
-                                        <div className='text-sm font-semibold text-white'>
+                                        <div className='text-sm font-semibold text-text-main'>
                                             {product.name}
                                         </div>
                                     </div>
@@ -88,7 +88,7 @@ const ProductsList = ({ onEdit }) => {
                                         className={`p-2 rounded-lg transition-all duration-200 ${
                                             product.isFeatured
                                                 ? "bg-yellow-400/20 text-yellow-400 hover:bg-yellow-400/30 border border-yellow-400/30"
-                                                : "bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white border border-transparent"
+                                                : "bg-surface-hover text-text-muted hover:bg-white/10 hover:text-text-main border border-transparent"
                                         }`}
                                         title={product.isFeatured ? "Remove from Featured" : "Mark as Featured"}
                                     >

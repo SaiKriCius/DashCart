@@ -31,10 +31,10 @@ const CartPage = () => {
                     transition={{ duration: 0.5 }}
                     className="mb-8"
                 >
-                    <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    <h1 className="text-3xl sm:text-4xl font-extrabold text-text-main tracking-tight">
                         Shopping <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-indigo-400">Cart</span>
                     </h1>
-                    <p className="mt-2 text-slate-400">
+                    <p className="mt-2 text-text-muted">
                         Review your items and apply any available coupons before checkout.
                     </p>
                 </motion.div>
@@ -84,19 +84,19 @@ const EmptyCartUI = () => (
         transition={{ duration: 0.5 }}
     >
         {/* Premium Glassmorphism Icon Box */}
-        <div className="w-24 h-24 sm:w-32 sm:h-32 bg-white/5 rounded-full flex items-center justify-center border border-white/10 shadow-2xl mb-8">
-            <ShoppingCart className="h-12 w-12 sm:h-16 sm:w-16 text-slate-400" />
+        <div className="w-24 h-24 sm:w-32 sm:h-32 bg-surface-hover rounded-full flex items-center justify-center border border-border-subtle shadow-2xl mb-8">
+            <ShoppingCart className="h-12 w-12 sm:h-16 sm:w-16 text-text-muted" />
         </div>
         
-        <h3 className="text-2xl sm:text-3xl font-bold text-white mb-3">Your cart is empty</h3>
+        <h3 className="text-2xl sm:text-3xl font-bold text-text-main mb-3">Your cart is empty</h3>
         
-        <p className="text-slate-400 max-w-sm mb-8 leading-relaxed">
+        <p className="text-text-muted max-w-sm mb-8 leading-relaxed">
             Looks like you haven&apos;t added anything to your cart yet. Discover our latest eco-friendly trends!
         </p>
         
         {/* Upgraded Button */}
         <Link
-            className="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3.5 text-sm sm:text-base font-bold text-white shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all duration-200 active:scale-95"
+            className="inline-flex items-center justify-center rounded-lg bg-primary px-8 py-3.5 text-sm sm:text-base font-bold text-text-main shadow-lg shadow-primary/20 hover:bg-primary-dark transition-all duration-200 active:scale-95"
             to="/"
         >
             Start Shopping

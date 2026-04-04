@@ -69,13 +69,13 @@ const AnalyticsTab = () => {
             </div>
 
             <motion.div
-                className='bg-slate-900/60 backdrop-blur-xl border border-white/10 rounded-2xl p-4 sm:p-6 shadow-2xl'
+                className='bg-surface backdrop-blur-xl border border-border-subtle rounded-2xl p-4 sm:p-6 shadow-2xl'
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
             >
                 {/* Added a nice header for the chart */}
-                <h3 className="text-xl font-bold text-white mb-6 pl-2">Sales Overview</h3>
+                <h3 className="text-xl font-bold text-text-main mb-6 pl-2">Sales Overview</h3>
                 
                 <div className="h-[300px] sm:h-[400px]">
                     <ResponsiveContainer width='100%' height='100%'>
@@ -149,18 +149,18 @@ export default AnalyticsTab;
 
 const AnalyticsCard = ({ title, value, icon: Icon, iconColor }) => (
     <motion.div
-        className='bg-slate-900/60 backdrop-blur-lg border border-white/10 rounded-2xl p-6 shadow-lg overflow-hidden relative group hover:border-primary/30 hover:shadow-primary/10 transition-all duration-300'
+        className='bg-surface backdrop-blur-lg border border-border-subtle rounded-2xl p-6 shadow-lg overflow-hidden relative group hover:border-primary/30 hover:shadow-primary/10 transition-all duration-300'
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
     >
         <div className='flex justify-between items-start'>
             <div className='z-10'>
-                <p className='text-slate-400 text-sm mb-1 font-medium'>{title}</p>
-                <h3 className='text-white text-3xl font-extrabold tracking-tight'>{value}</h3>
+                <p className='text-text-muted text-sm mb-1 font-medium'>{title}</p>
+                <h3 className='text-text-main text-3xl font-extrabold tracking-tight'>{value}</h3>
             </div>
             {/* Added a glowing backdrop to the small icon */}
-            <div className={`p-3 rounded-xl bg-white/5 border border-white/10 shadow-inner ${iconColor}`}>
+            <div className={`p-3 rounded-xl bg-surface-hover border border-border-subtle shadow-inner ${iconColor}`}>
                 <Icon size={24} />
             </div>
         </div>

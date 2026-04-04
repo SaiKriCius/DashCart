@@ -123,8 +123,8 @@ const FeaturedProducts = ({ featuredProducts }) => {
                 disabled={isStartDisabled}
                 className={`absolute top-1/2 -left-4 sm:-left-6 -translate-y-1/2 p-3 rounded-full transition-all duration-300 z-10 shadow-lg border ${
                   isStartDisabled
-                    ? "bg-white/5 border-white/5 text-slate-500 cursor-not-allowed opacity-50"
-                    : "bg-slate-800 border-white/10 text-white hover:bg-primary hover:border-primary hover:scale-110 shadow-black/50 opacity-0 group-hover:opacity-100"
+                    ? "bg-surface-hover border-white/5 text-slate-500 cursor-not-allowed opacity-50"
+                    : "bg-slate-800 border-border-subtle text-text-main hover:bg-primary hover:border-primary hover:scale-110 shadow-black/50 opacity-0 group-hover:opacity-100"
                 }`}
               >
                 <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -135,8 +135,8 @@ const FeaturedProducts = ({ featuredProducts }) => {
                 disabled={isEndDisabled}
                 className={`absolute top-1/2 -right-4 sm:-right-6 -translate-y-1/2 p-3 rounded-full transition-all duration-300 z-10 shadow-lg border ${
                   isEndDisabled
-                    ? "bg-white/5 border-white/5 text-slate-500 cursor-not-allowed opacity-50"
-                    : "bg-slate-800 border-white/10 text-white hover:bg-primary hover:border-primary hover:scale-110 shadow-black/50 opacity-0 group-hover:opacity-100"
+                    ? "bg-surface-hover border-white/5 text-slate-500 cursor-not-allowed opacity-50"
+                    : "bg-slate-800 border-border-subtle text-text-main hover:bg-primary hover:border-primary hover:scale-110 shadow-black/50 opacity-0 group-hover:opacity-100"
                 }`}
               >
                 <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />

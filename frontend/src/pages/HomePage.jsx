@@ -27,18 +27,18 @@ const HomePage = () => {
   }, [fetchFeaturedProducts]);
 
   return (
-    <div className="relative min-h-screen text-white overflow-hidden">
+    <div className="relative min-h-screen text-text-main overflow-hidden">
       
       {/* HERO SECTION - Upgraded for a premium feel */}
       <section className="pt-12 sm:pt-20 pb-12 text-center px-4 max-w-4xl mx-auto">        
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
           Explore Our{" "}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-indigo-400">
+          <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-indigo-400">
             Categories
           </span>
         </h1>
 
-        <p className="text-base sm:text-lg text-slate-400 mt-6 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-lg text-text-muted mt-6 max-w-2xl mx-auto leading-relaxed">
           Discover the latest trends in eco-friendly fashion. High-quality materials, curated just for you.
         </p>
       </section>

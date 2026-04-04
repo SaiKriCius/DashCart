@@ -36,12 +36,12 @@ const PeopleAlsoBought = () => {
 
     return (
         <motion.div 
-            className='mt-12 pt-8 border-t border-white/10'
+            className='mt-12 pt-8 border-t border-border-subtle'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
         >
-            <h3 className='text-2xl font-bold text-white mb-6 flex items-center gap-2'>
+            <h3 className='text-2xl font-bold text-text-main mb-6 flex items-center gap-2'>
                 People also <span className="text-primary">bought</span>
             </h3>
             

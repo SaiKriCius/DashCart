@@ -71,12 +71,12 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
 
     return (
         <motion.div
-            className='bg-slate-900/60 backdrop-blur-xl shadow-2xl rounded-2xl border border-white/10 p-6 sm:p-8 mb-8 max-w-2xl mx-auto'
+            className='bg-surface backdrop-blur-xl shadow-2xl rounded-2xl border border-border-subtle p-6 sm:p-8 mb-8 max-w-2xl mx-auto'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
         >
-            <h2 className='text-2xl sm:text-3xl font-bold mb-8 text-white flex items-center gap-3'>
+            <h2 className='text-2xl sm:text-3xl font-bold mb-8 text-text-main flex items-center gap-3'>
                 {editingProduct ? (
                     <>
                         <Edit className="text-primary h-8 w-8" /> 
@@ -102,7 +102,7 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
                         onChange={(e) =>
                             setNewProduct({ ...newProduct, name: e.target.value })
                         }
-                        className='block w-full bg-white/5 border border-white/10 rounded-lg py-2.5 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200'
+                        className='block w-full bg-surface-hover border border-border-subtle rounded-lg py-2.5 px-4 text-text-main placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200'
                         placeholder="e.g., Vintage Denim Jacket"
                         required
                     />
@@ -119,7 +119,7 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
                         onChange={(e) =>
                             setNewProduct({ ...newProduct, description: e.target.value })
                         }
-                        className='block w-full bg-white/5 border border-white/10 rounded-lg py-2.5 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 resize-none'
+                        className='block w-full bg-surface-hover border border-border-subtle rounded-lg py-2.5 px-4 text-text-main placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 resize-none'
                         placeholder="Describe the product details..."
                         required
                     />
@@ -138,7 +138,7 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
                             onChange={(e) =>
                                 setNewProduct({ ...newProduct, price: e.target.value })
                             }
-                            className='block w-full bg-white/5 border border-white/10 rounded-lg py-2.5 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200'
+                            className='block w-full bg-surface-hover border border-border-subtle rounded-lg py-2.5 px-4 text-text-main placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200'
                             placeholder="0.00"
                             required
                         />
@@ -154,7 +154,7 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
                             onChange={(e) =>
                                 setNewProduct({ ...newProduct, category: e.target.value })
                             }
-                            className='block w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 appearance-none'
+                            className='block w-full bg-surface-hover border border-border-subtle rounded-lg py-3 px-4 text-text-main focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200 appearance-none'
                             required
                         >
                             <option value='' className="bg-slate-800">Select a category</option>
@@ -172,10 +172,10 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
                     <label className='block text-sm font-medium text-slate-300 mb-1.5'>
                         Product Image
                     </label>
-                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-white/10 border-dashed rounded-xl hover:border-primary/50 transition-colors bg-white/5 relative group">
+                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-border-subtle border-dashed rounded-xl hover:border-primary/50 transition-colors bg-surface-hover relative group">
                         <div className="space-y-1 text-center">
-                            <ImageIcon className="mx-auto h-12 w-12 text-slate-400 group-hover:text-primary transition-colors" />
-                            <div className="flex text-sm text-slate-400 justify-center">
+                            <ImageIcon className="mx-auto h-12 w-12 text-text-muted group-hover:text-primary transition-colors" />
+                            <div className="flex text-sm text-text-muted justify-center">
                                 {/* FIXED THE BUG HERE: Added id to input and htmlFor to label */}
                                 <label
                                     htmlFor="image-upload"
@@ -198,7 +198,7 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
 
                     {/* IMAGE PREVIEW UI */}
                     {newProduct.image && (
-                        <div className="mt-4 flex items-center gap-4 bg-white/5 p-3 rounded-lg border border-white/10">
+                        <div className="mt-4 flex items-center gap-4 bg-surface-hover p-3 rounded-lg border border-border-subtle">
                             <img 
                                 src={newProduct.image} 
                                 alt="Preview" 
@@ -206,7 +206,7 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
                             />
                             <div className="flex flex-col">
                                 <span className="text-sm text-primary font-bold">Image Ready</span>
-                                <span className="text-xs text-slate-400">Attached to product</span>
+                                <span className="text-xs text-text-muted">Attached to product</span>
                             </div>
                         </div>
                     )}
@@ -216,7 +216,7 @@ const CreateProductForm = ({ editingProduct, clearEdit }) => {
                 <button
                     type='submit'
                     disabled={loading}
-                    className='w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg shadow-primary/20 text-sm font-bold text-white bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-primary transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mt-4'
+                    className='w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-lg shadow-primary/20 text-sm font-bold text-text-main bg-primary hover:bg-primary-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-900 focus:ring-primary transition-all duration-200 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed mt-4'
                 >
                     {loading ? (
                         <>

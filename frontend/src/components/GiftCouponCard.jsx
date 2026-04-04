@@ -27,12 +27,12 @@ const GiftCouponCard = () => {
 
     return (
         <motion.div
-            className='rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-xl p-6 sm:p-8 shadow-2xl'
+            className='rounded-2xl border border-border-subtle bg-surface backdrop-blur-xl p-6 sm:p-8 shadow-2xl'
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
         >
-            <h3 className='text-lg font-bold text-white mb-4 flex items-center gap-2'>
+            <h3 className='text-lg font-bold text-text-main mb-4 flex items-center gap-2'>
                 <Ticket className="text-primary w-5 h-5" />
                 Promo Code
             </h3>
@@ -47,7 +47,7 @@ const GiftCouponCard = () => {
                     <div className='flex items-center gap-3'>
                         <CheckCircle className="text-primary w-6 h-6 shrink-0" />
                         <div>
-                            <p className='text-sm font-extrabold text-white uppercase tracking-wider'>
+                            <p className='text-sm font-extrabold text-text-main uppercase tracking-wider'>
                                 {coupon.code}
                             </p>
                             <p className='text-xs font-medium text-primary mt-0.5'>
@@ -58,7 +58,7 @@ const GiftCouponCard = () => {
 
                     <button
                         type='button'
-                        className='p-1.5 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-200'
+                        className='p-1.5 text-text-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-200'
                         onClick={handleRemoveCoupon}
                         title="Remove Coupon"
                     >
@@ -75,7 +75,7 @@ const GiftCouponCard = () => {
                         <input
                             type='text'
                             id='voucher'
-                            className='block w-full uppercase bg-white/5 border border-white/10 rounded-lg py-2.5 px-4 text-white placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200'
+                            className='block w-full uppercase bg-surface-hover border border-border-subtle rounded-lg py-2.5 px-4 text-text-main placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-all duration-200'
                             placeholder='ENTER CODE'
                             value={userInputCode}
                             onChange={(e) => setUserInputCode(e.target.value)}
@@ -85,7 +85,7 @@ const GiftCouponCard = () => {
 
                     <button
                         type='button'
-                        className='flex w-full items-center justify-center rounded-lg bg-white/10 border border-white/10 px-5 py-2.5 text-sm font-bold text-white hover:bg-white/20 transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/30'
+                        className='flex w-full items-center justify-center rounded-lg bg-white/10 border border-border-subtle px-5 py-2.5 text-sm font-bold text-text-main hover:bg-white/20 transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-white/30'
                         onClick={handleApplyCoupon}
                     >
                         Apply Code
@@ -93,11 +93,11 @@ const GiftCouponCard = () => {
 
                     {/* AVAILABLE COUPON HINT */}
                     {coupon && (
-                        <div className='mt-4 p-3 bg-white/5 border border-white/10 rounded-lg flex items-start gap-2'>
+                        <div className='mt-4 p-3 bg-surface-hover border border-border-subtle rounded-lg flex items-start gap-2'>
                             <Tag className="text-indigo-400 w-4 h-4 mt-0.5 shrink-0" />
                             <div>
                                 <p className='text-sm font-medium text-slate-300'>Available for you</p>
-                                <p className='text-xs text-slate-400 mt-1'>
+                                <p className='text-xs text-text-muted mt-1'>
                                     Use code <span className="font-bold text-indigo-400 uppercase tracking-wide">{coupon.code}</span> for {coupon.discountPercentage}% off your order!
                                 </p>
                             </div>

@@ -44,11 +44,11 @@ const CartItem = ({ item }) => {
     };
 
     return (
-        <div className="rounded-2xl border border-white/10 bg-slate-900/60 backdrop-blur-lg shadow-lg p-4 md:p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-primary/10 hover:bg-slate-900/80 group">
+        <div className="rounded-2xl border border-border-subtle bg-surface backdrop-blur-lg shadow-lg p-4 md:p-6 transition-all duration-300 hover:border-primary/30 hover:shadow-primary/10 hover:bg-slate-900/80 group">
             <div className="flex items-start sm:items-center gap-4 sm:gap-6">
 
                 {/* IMAGE */}
-                <div className="relative shrink-0 rounded-xl border border-white/10 overflow-hidden bg-white/5">
+                <div className="relative shrink-0 rounded-xl border border-border-subtle overflow-hidden bg-surface-hover">
                     <img
                         src={item.image}
                         alt={item.name}
@@ -60,7 +60,7 @@ const CartItem = ({ item }) => {
                 <div className="flex-1 flex flex-col justify-between">
                     <div className="flex justify-between items-start gap-4">
                         <div>
-                            <h3 className="text-base sm:text-lg font-bold text-white line-clamp-2">
+                            <h3 className="text-base sm:text-lg font-bold text-text-main line-clamp-2">
                                 {item.name}
                             </h3>
                             <p className="mt-1 text-primary text-lg font-extrabold">
@@ -71,7 +71,7 @@ const CartItem = ({ item }) => {
                         {/* REMOVE BUTTON (Moved to top right for better layout) */}
                         <button
                             onClick={() => removeFromCart(item._id)}
-                            className="p-2 text-slate-400 hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-200 shrink-0"
+                            className="p-2 text-text-muted hover:text-red-400 hover:bg-red-500/10 rounded-lg transition-all duration-200 shrink-0"
                             title="Remove item"
                         >
                             <Trash2 size={20} />
@@ -82,10 +82,10 @@ const CartItem = ({ item }) => {
                         
                         {/* QUANTITY CONTROLS - Unified Pill Design */}
                         <div className="flex flex-col">
-                            <div className="flex items-center bg-white/5 border border-white/10 rounded-lg w-max p-1">
+                            <div className="flex items-center bg-surface-hover border border-border-subtle rounded-lg w-max p-1">
                                 <button
                                     onClick={decreaseQty}
-                                    className="p-1.5 rounded-md text-slate-300 hover:bg-white/10 hover:text-white transition-colors disabled:opacity-50"
+                                    className="p-1.5 rounded-md text-slate-300 hover:bg-white/10 hover:text-text-main transition-colors disabled:opacity-50"
                                 >
                                     <Minus size={16} />
                                 </button>
@@ -109,7 +109,7 @@ const CartItem = ({ item }) => {
                                         text-center
                                         bg-transparent
                                         border-none
-                                        text-white
+                                        text-text-main
                                         font-semibold
                                         text-sm
                                         focus:outline-none focus:ring-0
@@ -125,7 +125,7 @@ const CartItem = ({ item }) => {
                                     className={`p-1.5 rounded-md transition-colors ${
                                         item.quantity >= MAX_QTY
                                             ? "text-slate-500 cursor-not-allowed"
-                                            : "text-slate-300 hover:bg-white/10 hover:text-white"
+                                            : "text-slate-300 hover:bg-white/10 hover:text-text-main"
                                     }`}
                                 >
                                     <Plus size={16} />

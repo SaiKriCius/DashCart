@@ -49,21 +49,21 @@ const CategoryPage = () => {
                         transition={{ duration: 0.5 }}
                     >
                         {/* A nice glassmorphism icon container */}
-                        <div className="w-24 h-24 bg-white/5 rounded-full flex items-center justify-center mb-6 border border-white/10 shadow-lg">
-                            <PackageSearch size={48} className="text-slate-400" />
+                        <div className="w-24 h-24 bg-surface-hover rounded-full flex items-center justify-center mb-6 border border-border-subtle shadow-lg">
+                            <PackageSearch size={48} className="text-text-muted" />
                         </div>
                         
-                        <h2 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+                        <h2 className="text-2xl sm:text-3xl font-bold text-text-main mb-4">
                             No products found in this category
                         </h2>
-                        <p className="text-slate-400 mb-8 max-w-md mx-auto">
+                        <p className="text-text-muted mb-8 max-w-md mx-auto">
                             We're working on adding more items to this collection. Check back soon or explore our other amazing products!
                         </p>
                         
                         {/* Call to Action to keep them on the site */}
                         <Link 
                             to="/"
-                            className="bg-primary hover:bg-primary-dark text-white px-6 py-3 rounded-lg font-medium transition-all active:scale-95 shadow-lg shadow-primary/20"
+                            className="bg-primary hover:bg-primary-dark text-text-main px-6 py-3 rounded-lg font-medium transition-all active:scale-95 shadow-lg shadow-primary/20"
                         >
                             Explore Other Categories
                         </Link>
